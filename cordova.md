@@ -6,7 +6,7 @@
 
 
 
-### 整体语法
+### 第一步: 整体语法
 
 ```js
 ;(function() {
@@ -18,7 +18,7 @@
 
 
 
-###  声明变量
+###  第一步:声明变量
 
 ```js
 var PLATFORM_VERSION_BUILD_LABEL = '5.0.1';
@@ -29,18 +29,18 @@ var define;
 
 这里声明三个变量
 
-### 自执行程序
+### 第二步:自执行程序
 
 ```js
 (function () {
 
 ​    var modules = {};
 
-​    *// Stack of moduleIds currently being built.*
+​    // Stack of moduleIds currently being built.*
 
 ​    var requireStack = [];
 
-​    *// Map of module ID -> index into requireStack of modules currently being built.*
+​    // Map of module ID -> index into requireStack of modules currently being built.*
 
 ​    var inProgressModules = {};
 
@@ -56,7 +56,7 @@ var define;
 
 ​            var resultantId = id;
 
-​            *// Its a relative path, so lop off the last portion and add the id (minus "./")*
+​            // Its a relative path, so lop off the last portion and add the id (minus "./")*
 
 ​            if (id.charAt(0) === '.') {
 
@@ -153,7 +153,63 @@ var define;
 ​    define.moduleMap = modules;
 
 })();
+
+
+
 ```
+
+这也是自执行程序.为了防止该执行程序内的变量泄露给外界.
+
+#####  自执行程序分析
+
+1. 声明变量 modules,requireStack,inProgressModules,SEPARATOR
+2. 声明函数 build (module) 
+3. 给外界的require变量赋值.  (这里需要注意的是,该变量指向的是一个函数)
+4. 给外界的define变量赋值(同理,该变量指向的是一个函数)
+5. 给变量define 增加属性remove.该属性指向一个函数
+6. 给变量define 增加属性moduleMap ,该属性指向变量modules
+
+##### define变量分析
+
+该变量结构体
+
+![](image-20190605172825999.png)
+
+
+
+从这个结构体的api能看出来,define相当于字典.
+
+define自身指向的函数相当于向字典中添加数据
+
+define的remove属性指向的函数相当于从字典中删除数据
+
+
+
+从这里我们也能看出modules中的数据结构是 
+
+
+
+##### require变量分析
+
+该变量指向一个函数,该函数传入一个参数 id.
+
+
+
+1. 如果从modules中查询id .没有直接抛出异常
+2. 如果modules中存入id数据,那么我们检查id 是否存在inProgressModules变量(该变量也是map)中,存在该变量中,也抛出异常.(这里的requireStack和inProgressModules 目前看不出来有啥作用,因为我们没有向这里添加过如何数据)
+3. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
