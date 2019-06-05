@@ -175,8 +175,6 @@ var define;
 
 ![](image-20190605172825999.png)
 
-
-
 从这个结构体的api能看出来,define相当于字典.
 
 define自身指向的函数相当于向字典中添加数据
@@ -187,7 +185,7 @@ define的remove属性指向的函数相当于从字典中删除数据
 
 从这里我们也能看出modules中的数据结构是 
 
-
+![modules结构](modules结构.png)
 
 ##### require变量分析
 
