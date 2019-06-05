@@ -32,81 +32,81 @@ var define;
 ### 自执行程序
 
 ```js
-(**function** () {
+(function () {
 
-​    **var** modules = {};
+​    var modules = {};
 
 ​    *// Stack of moduleIds currently being built.*
 
-​    **var** requireStack = [];
+​    var requireStack = [];
 
 ​    *// Map of module ID -> index into requireStack of modules currently being built.*
 
-​    **var** inProgressModules = {};
+​    var inProgressModules = {};
 
-​    **var** SEPARATOR = '.';
+​    var SEPARATOR = '.';
 
 
 
-​    **function** build (module) {
+​    function build (module) {
 
-​        **var** factory = module.factory;
+​        var factory = module.factory;
 
-​        **var** localRequire = **function** (id) {
+​        var localRequire = function (id) {
 
-​            **var** resultantId = id;
+​            var resultantId = id;
 
 ​            *// Its a relative path, so lop off the last portion and add the id (minus "./")*
 
-​            **if** (id.charAt(0) === '.') {
+​            if (id.charAt(0) === '.') {
 
 ​                resultantId = module.id.slice(0, module.id.lastIndexOf(SEPARATOR)) + SEPARATOR + id.slice(2);
 
 ​            }
 
-​            **return** require(resultantId);
+​            return require(resultantId);
 
 ​        };
 
 ​        module.exports = {};
 
-​        **delete** module.factory;
+​        delete module.factory;
 
 ​        factory(localRequire, module.exports, module);
 
-​        **return** module.exports;
+​        return module.exports;
 
 ​    }
 
 
 
-​    require = **function** (id) {
+​    require = function (id) {
 
-​        **if** (!modules[id]) {
+​        if (!modules[id]) {
 
-​            **throw** 'module ' + id + ' not found';
+​            throw 'module ' + id + ' not found';
 
-​        } **else** **if** (id **in** inProgressModules) {
+​        } else if (id in inProgressModules) {
 
-​            **var** cycle = requireStack.slice(inProgressModules[id]).join('->') + '->' + id;
+​            var cycle = requireStack.slice(inProgressModules[id]).join('->') + '->' + id;
 
-​            **throw** 'Cycle in require graph: ' + cycle;
+​            throw 'Cycle in require graph: ' + cycle;
 
 ​        }
 
-​        **if** (modules[id].factory) {
+​        if (modules[id].factory) {
 
-​            **try** {
+​            try {
 
 ​                inProgressModules[id] = requireStack.length;
 
 ​                requireStack.push(id);
 
-​                **return** build(modules[id]);
+​                return build(modules[id]);
 
-​            } **finally** {
+​            } finally {
 
-​                **delete** inProgressModules[id];
+​                delete inProgressModules[id];
 
 ​                requireStack.pop();
 
@@ -114,17 +114,17 @@ var define;
 
 ​        }
 
-​        **return** modules[id].exports;
+​        return modules[id].exports;
 
 ​    };
 
 
 
-​    define = **function** (id, factory) {
+​    define = function (id, factory) {
 
-​        **if** (modules[id]) {
+​        if (modules[id]) {
 
-​            **throw** 'module ' + id + ' already defined';
+​            throw 'module ' + id + ' already defined';
 
 ​        }
 
@@ -142,9 +142,9 @@ var define;
 
 
 
-​    define.remove = **function** (id) {
+​    define.remove = function (id) {
 
-​        **delete** modules[id];
+​        delete modules[id];
 
 ​    };
 
