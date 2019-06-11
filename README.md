@@ -12,3 +12,7 @@
 
 ### [cordova.js 文件分析(3)](./cordova3.md)
 
+### [cordova.js 文件分析(4)](./cordova4.md)
+
+### [cordova.js 文件分析(5)](./cordova5.md)
+
