@@ -1,6 +1,6 @@
 
 
-cordova.js 文件分析(7)
+# cordova.js 文件分析(7)
 
 ### cordova/argscheck 从factory 变成 exports
 

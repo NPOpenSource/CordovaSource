@@ -18,3 +18,7 @@
 
 ### [cordova.js 文件分析(6)](./cordova6.md)
 
+### [cordova.js 文件分析(7)](./cordova7.md)
+
+### [cordova.js总结](./cordova8.md)
+
