@@ -32,5 +32,37 @@ cordova 一共有一下声明周期
 
 
 
+### cordova 加载流程
+
+
+
+![image-20190614201028105](image-20190614201028105.png)
+
+
+
+
+
+> modulemapper 装的是加载命令
+>
+> pluginloader 加载的是插件路径在cordova/plugin_list  
+>
+> 弄懂上面这两个module 开起来就很快了. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
