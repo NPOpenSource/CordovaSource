@@ -50,7 +50,31 @@ cordova 一共有一下声明周期
 
 
 
+```
 
+```
+
+cordova.define('cordova/plugin_list', **function**(require, exports, module) {
+
+module.exports =[{
+    "id": "cordova-plugin-camera.Camera",
+    "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+    "pluginId": "cordova-plugin-camera",
+    "clobbers": [
+      "Camera"
+    ] 
+
+}];
+
+ module.exports.metadata = {
+
+​    "cordova-plugin-camera": "4.0.2",
+
+​    "cordova-plugin-whitelist": "1.3.3"
+
+  };
+
+},
 
 
 
